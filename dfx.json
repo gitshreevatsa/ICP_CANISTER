@@ -1,0 +1,51 @@
+{
+  "canisters": {
+    "ledger": {
+      "candid": "ledger.public.did",
+      "type": "custom",
+      "wasm": "ledger.wasm",
+      "remote": {
+        "id": {
+          "ic": "ryjl3-tyaaa-aaaaa-aaaba-cai"
+        }
+      }
+    },
+    "ledger_transfer_canister": {
+      "dependencies": [
+        "ledger"
+      ],
+      "type": "rust",
+      "candid": "src/ledger_transfer_canister/tokens_transfer.did",
+      "package": "ledger_transfer_canister"
+    },
+    "ledger_transfer_backend": {
+      "candid": "src/ledger_transfer_backend/ledger_transfer_backend.did",
+      "package": "ledger_transfer_backend",
+      "type": "rust"
+    },
+    "ledger_transfer_frontend": {
+      "dependencies": [
+        "ledger_transfer_backend"
+      ],
+      "frontend": {
+        "entrypoint": "src/ledger_transfer_frontend/src/index.html"
+      },
+      "source": [
+        "src/ledger_transfer_frontend/assets",
+        "dist/ledger_transfer_frontend/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "replica": {
+      "subnet_type": "system"
+    },
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
